@@ -44,6 +44,7 @@ class Codeground_70 {
 			
 			System.out.println("Case #"+(test_case+1));
 			System.out.println(Answer);
+			Answer=0;
 		}
 	}
 }
