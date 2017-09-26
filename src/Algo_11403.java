@@ -20,7 +20,7 @@ public class Algo_11403 {
 		}
 		for(int i=0;i<n;i++){
 			Arrays.fill(visited, 0);
-			System.out.println("i :"+ i);
+			//System.out.println("i :"+ i);
 			dfs(i);
 			
 			for(int j=0;j<n;j++){
@@ -36,7 +36,7 @@ public class Algo_11403 {
 		}
 	}
 	public static void dfs(int start){
-		System.out.println("bfs start: "+start);
+		//System.out.println("bfs start: "+start);
 		for(int i=0;i<n;i++){
 			if(arr[start][i]==1 && visited[i]==0){
 				visited[i]=1;
