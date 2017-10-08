@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+ // 조합 테스트!!
 public class test {
 	static int N,M;
 	static int arr[][];
@@ -16,6 +16,7 @@ public class test {
 	}
 	public static void combination(int index, int n, int r, int target){
 		if(r ==0){
+			System.out.println(index);
 			for(int i=0;i<index;i++){
 				System.out.print(com[i]+" ");
 			}
