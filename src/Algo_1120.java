@@ -24,7 +24,7 @@ public class Algo_1120 {
 					cnt++;
 				}
 			}
-			System.out.println(cnt);
+			//System.out.println(cnt);
 			if(min>cnt){
 				min = cnt;
 			}
