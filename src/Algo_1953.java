@@ -5,9 +5,9 @@
 //import java.util.LinkedList;
 //import java.util.Queue;
 //import java.util.StringTokenizer;
-// // 탈주범 검거 
+//// 탈주범 검거 
 //
-//class Algo_1953 {
+//public class Algo_1953 {
 //	static int T,N,M,R,C,L;
 //	static int arr[][];
 //	static boolean visited[][];
@@ -15,11 +15,12 @@
 //	static int dy[];
 //	static int cnt=1;
 //	static int tCnt=1;
+//	static int D[][];
 //	public static void main(String[]args) throws IOException{
 //		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 //		StringTokenizer st;
 //		T =Integer.parseInt(br.readLine());
-//		
+//
 //		for(int t = 0; t<T;t++){
 //			String line = br.readLine();
 //			st =new StringTokenizer(line);
@@ -28,10 +29,10 @@
 //			R = Integer.parseInt(st.nextToken());
 //			C = Integer.parseInt(st.nextToken());
 //			L = Integer.parseInt(st.nextToken());
-//			
+//
 //			arr = new int[N][M];
 //			visited = new boolean[N][M];
-//			
+//			D = new int[N][M];
 //			for(int i=0;i<N;i++){
 //				String tmp=br.readLine();
 //				st =new StringTokenizer(tmp);
@@ -67,22 +68,22 @@
 //				dx[3]=-1;
 //			}
 //			if(arr[tmp.y][tmp.x]==4){
-//				dy[0]=1;
+//				dy[0]=-1;
 //				dx[2]=1;
 //			}
 //			if(arr[tmp.y][tmp.x]==5){
-//				dy[1]=-1;
+//				dy[1]=1;
 //				dx[2]=1;
 //			}
 //			if(arr[tmp.y][tmp.x]==6){
-//				dy[1]=-1;
+//				dy[1]=1;
 //				dx[3]=-1;
 //			}
 //			if(arr[tmp.y][tmp.x]==7){
-//				dy[0]=1;
+//				dy[0]=-1;
 //				dx[3]=-1;
 //			}
-//			
+//
 //			for(int i=0;i<4;i++){
 //				int nx = tmp.x+dx[i];
 //				int ny = tmp.y+dy[i];
@@ -116,13 +117,34 @@
 //						continue;
 //					}
 //				}
-//
-//				//System.out.println("x, y ny , nx nt:"+tmp.x+" "+tmp.y+" "+dx[i]+" "+dy[i]+" "+ny+" "+nx +" "+nt);
+////				if(arr[tmp.y][tmp.x]==1){
+////					if(arr[tmp.y][tmp.x+1]==2 ||arr[tmp.y][tmp.x+1]==4 || arr[tmp.y][tmp.x+1]==5){
+////						continue;
+////					}
+////					if(arr[tmp.y][tmp.x-1]==2 || arr[tmp.y][tmp.x-1]==6 || arr[tmp.y][tmp.x-1]==7){
+////						continue;
+////					}
+////					if(arr[tmp.y+1][tmp.x]==3 ||arr[tmp.y+1][tmp.x]==5 ||  arr[tmp.y+1][tmp.x]==6){
+////						continue;
+////					}
+////					if(arr[tmp.y-1][tmp.x]==3 || arr[tmp.y-1][tmp.x]==4 || arr[tmp.y-1][tmp.x]==7){
+////						continue;
+////					}
+////				}
+////				
+//				//System.out.println("x, y ny , nx nt:"+ny+" "+nx +" "+nt);
 //				q.add(new Node(ny,nx,nt));
+//				D[ny][nx]=nt;
 //				cnt++;
 //				visited[ny][nx]=true;
 //			}
 //			if(tmp.time == (L-1)){
+//				for(int l=0;l<N;l++){
+//					for(int j=0;j<M;j++){
+//						System.out.print(D[l][j]+" ");
+//					}
+//					System.out.println("");
+//				}
 //				System.out.println("#"+tCnt+" "+cnt);
 //				cnt=1;
 //				tCnt++;

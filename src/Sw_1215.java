@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Sw_1215 {
@@ -24,6 +25,7 @@ public class Sw_1215 {
 	}
 	public static void solution(int t){
 		//가로 방향 
+		
 		for(int i=0;i<8;i++){
 			int start = 0;
 			int flag  = 0;
