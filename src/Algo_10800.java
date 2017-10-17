@@ -26,8 +26,8 @@ public class Algo_10800 {
 				return Integer.compare(o2[2], o1[2]);
 			}
 		});
-		//showArr();
-			
+		showArr();
+		
 		for(int i=0;i<N;i++){
 			for(int k=i+1;k<N;k++){
 				if(arr[i][1]!=arr[k][1]){
@@ -35,6 +35,7 @@ public class Algo_10800 {
 				}
 			}
 		}
+		
 		for(int i=0;i<N;i++){
 			System.out.println(result[i]);
 		}

@@ -8,7 +8,6 @@ public class Algo_1182 {
 	public static void main(String[]args){
 		Scanner in = new Scanner(System.in);
 		
-		
 		N= in.nextInt();
 		S= in.nextInt();
 		
@@ -22,10 +21,10 @@ public class Algo_1182 {
 			for(int j=i;j<N;j++){
 				res += arr[j];
 				if(res == S){
-					System.out.println("cnt증가");
+				//	System.out.println("cnt증가");
 					cnt++;
 				}
-				System.out.println("res :" + res);
+				//System.out.println("res :" + res);
 			}
 			res =0;
 		}

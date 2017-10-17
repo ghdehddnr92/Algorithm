@@ -117,21 +117,8 @@
 //						continue;
 //					}
 //				}
-////				if(arr[tmp.y][tmp.x]==1){
-////					if(arr[tmp.y][tmp.x+1]==2 ||arr[tmp.y][tmp.x+1]==4 || arr[tmp.y][tmp.x+1]==5){
-////						continue;
-////					}
-////					if(arr[tmp.y][tmp.x-1]==2 || arr[tmp.y][tmp.x-1]==6 || arr[tmp.y][tmp.x-1]==7){
-////						continue;
-////					}
-////					if(arr[tmp.y+1][tmp.x]==3 ||arr[tmp.y+1][tmp.x]==5 ||  arr[tmp.y+1][tmp.x]==6){
-////						continue;
-////					}
-////					if(arr[tmp.y-1][tmp.x]==3 || arr[tmp.y-1][tmp.x]==4 || arr[tmp.y-1][tmp.x]==7){
-////						continue;
-////					}
-////				}
-////				
+//				
+//				
 //				//System.out.println("x, y ny , nx nt:"+ny+" "+nx +" "+nt);
 //				q.add(new Node(ny,nx,nt));
 //				D[ny][nx]=nt;
