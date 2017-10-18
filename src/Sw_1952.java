@@ -6,10 +6,10 @@ public class Sw_1952 {
 	static int day,oneMonth,threeMonth,year;
 	static int arr[];
 	static int res=0;
-	static int zeroFlag=0;
+	static int min=1<<30;
 	public static void main(String[]ags){
 		Scanner in = new Scanner(System.in);
-		arr = new int[12];
+		arr = new int[13];
 		T = in.nextInt();
 		for(int i=1;i<=T;i++){
 			day = in.nextInt();
@@ -18,108 +18,25 @@ public class Sw_1952 {
 			year = in.nextInt();
 			
 			for(int j=0;j<12;j++){
-				arr[i]=in.nextInt();
-				if(arr[i]!=0){
-					zeroFlag++;
-				}
+				arr[j]=in.nextInt();
 			}
-			if(year<threeMonth && year<oneMonth){ //year가 가장 쌀 경우 
-				System.out.println("year가 가장 쌀경");
-				res = year;
-			}
-			else if(threeMonth < year && threeMonth < oneMonth){ // 3달이 가장 쌀 경우 
-				System.out.println("3달가 가장 쌀경");
-				if(zeroFlag%3!=0){
-					res = zeroFlag/3 * threeMonth + threeMonth;
-				}
-				else{
-					res = zeroFlag/3;
-				}
-				if(res > year){
-					res = year;
-				}
-			}
-			else if(oneMonth < year && oneMonth < threeMonth){ // 1달이 가장 쌀 경우
-				System.out.println("1달가 가장 쌀경");
-//				if(oneMonth*3 < threeMonth){
-//					if(oneMonth * zeroFlag < year){
-//						res = zeroFlag *oneMonth;
-//					}
-//					else{
-//						res = year;
-//					}
-//				}
-//				else{
-//					if(zeroFlag<3){
-//						res = zeroFlag * oneMonth;
-//					}
-//					else{
-//						if(zeroFlag!=0){
-//							res = zeroFlag/3 * threeMonth + oneMonth * zeroFlag%3;
-//						}
-//						else{
-//							res = zeroFlag/3 * threeMonth;
-//						}
-//						if(res > year){
-//							res = year;
-//						}
-//					}
-//				}
-				if(zeroFlag >=3){
-					if(oneMonth *3 < threeMonth){
-						for(int l=0;l<12;l++){
-							if(arr[l]*day < oneMonth){
-								res += arr[l]*day;
-							}
-							else{
-								res += oneMonth;
-							}
-						}
-					}
-					else{ 
-						Arrays.sort(arr);
-						res = zeroFlag/3 + threeMonth;
-						if(zeroFlag%3==1){
-							if(arr[12-zeroFlag+1]*day<oneMonth){
-								res += arr[12-zeroFlag+1]*day;
-							}
-							else{
-								res += oneMonth;
-							}
-						}
-						else if(zeroFlag%3 == 2){
-							if(arr[12-zeroFlag+1]*day<oneMonth){
-								res += arr[12-zeroFlag+1]*day;
-							}
-							else{
-								res += oneMonth;
-							}
-							if(arr[12-zeroFlag+2]*day<oneMonth){
-								res += arr[12-zeroFlag+2]*day;
-							}
-							else{
-								res += oneMonth;
-							}
-						}
-					}
-					if(res > year){
-						res = year;
-					}
-				}
-				else{
-					for(int l=0;l<12;l++){
-						if(arr[l]*day < oneMonth){
-							res += arr[l]*day;
-						}
-						else{
-							res += oneMonth;
-						}
-					}
-				}
-			}
-			System.out.println("#"+i+" "+res);
-			zeroFlag=0;
-			res=0;
+			
+			Search(0,0);
+			System.out.println("#"+i+" "+min);
+			min=1<<30;
 		}
+	}
+	public static void Search(int month, int cost){
+		//System.out.println(month+" "+cost);
+		if(month>=12){
+			if(cost<min){
+				min= cost;
+			}
+			return;
+		}
+		Search(month+1,cost+day*arr[month]);
+		Search(month+1,cost+oneMonth);
+		Search(month+3,cost+threeMonth);
+		Search(month+12,cost+year);
 	}
 }

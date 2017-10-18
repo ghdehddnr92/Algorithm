@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Sw_14501 {
 	static int N;
 	static int arr[][];
-	static int D[][];
 	static long max=0;
 	static int day=0;
 	static long sum=0;
@@ -12,19 +11,17 @@ public class Sw_14501 {
 		
 		N= in.nextInt();
 		arr = new int[N+1][2];
-		D = new int[N+1][2];
 		for(int i=1;i<=N;i++){
 			for(int j=0;j<2;j++){
 				arr[i][j]= in.nextInt();
 			}
 		}
-		
 		dfs(1,0);
 		System.out.println(max);
 	}
 	public static void dfs(int day, int sum){
 		if(day==N+1){
-			System.out.println(sum);
+		//	System.out.println(sum);
 			if(sum>max){
 				max = sum;
 			}
