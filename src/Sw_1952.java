@@ -34,6 +34,11 @@ public class Sw_1952 {
 			}
 			return;
 		}
+		//탈출조건  
+		if(cost>min){
+			return;
+		}
+		
 		Search(month+1,cost+day*arr[month]);
 		Search(month+1,cost+oneMonth);
 		Search(month+3,cost+threeMonth);

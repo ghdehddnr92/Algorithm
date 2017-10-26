@@ -27,7 +27,6 @@ public class Sw_14501 {
 			}
 			return;
 		}
-		//System.out.println("day :" +day+" 1 : "+arr[day][0]+" N" + N+ " sum : "+sum);
 		if(day+arr[day][0]<=N+1){ // 선택할 경우 
 			dfs(day+arr[day][0],sum+arr[day][1]);
 		}

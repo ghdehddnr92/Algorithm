@@ -56,9 +56,9 @@ public class Algo_14500 {
 					sum3=arr[i][j-1]+arr[i-1][j]+arr[i][j]+arr[i+1][j];
 				}
 				if(i+1<=N-1 && j-1>=0 && j+1<=M-1){
-					sum4 =arr[i+1][j-1]+arr[i][j]+arr[i][j+1]+arr[i+1][j];
+					sum4 =arr[i][j-1]+arr[i][j]+arr[i][j+1]+arr[i+1][j];
 				}
-				System.out.println(sum1+" "+sum2+" "+sum3+" "+sum4);
+			//	System.out.println(sum1+" "+sum2+" "+sum3+" "+sum4);
 				max=Math.max(max, Math.max(Math.max(Math.max(sum1, sum2),sum3),sum4));
 			}
 		}
@@ -85,13 +85,6 @@ public class Algo_14500 {
 			dfs(ny,nx,d+1,sum+arr[ny][nx]);
 		}
 		visited[y][x]=false;
-	}
-	public static void resetVisited(){
-		for(int i=0;i<N;i++){
-			for(int j=0;j<M;j++){
-				visited[i][j] = false;
-			}
-		}
 	}
 }
 class block{
