@@ -5,16 +5,18 @@ public class Practice_sort {
 	
 	public static void main(String[]args){
 		Scanner in = new Scanner(System.in);
-		arr = new int[7];
+		arr = new int[6];
 		
 		for(int i=0;i<arr.length;i++){
 			arr[i] = in.nextInt();
 		}
 		
 	//	bubbleSort();
-	//	insertionSort();
-		qsort(arr,0,6);
-		for(int i=0;i<7;i++){
+		//insertionSort();
+	//	selectionSort();
+	//	mergeSort();
+		//qsort(arr,0,6);
+		for(int i=0;i<6;i++){
 			System.out.print(arr[i]+" ");
 		}
 	}
@@ -31,14 +33,33 @@ public class Practice_sort {
 		}
 	}
 	public static void insertionSort(){
-		int tmp=0;
+		for(int i=1;i<6;i++){
+			int tmp = arr[i];
+			int aux = i-1;
+			while((aux)>=0 && (arr[aux]>tmp)){
+				arr[aux+1]= arr[aux];
+				aux--;
+			}
+			arr[aux+1]=tmp;
+		}
+	}
+	public static void selectionSort(){
+	
 		for(int i=0;i<6;i++){
-			for(int j=0;j<5;j++){
-				if(arr[j]>arr[j+1]){
-					
+			int indexMin = i;
+			int tmp;
+			for(int j=i+1;j<6;j++){
+				if(arr[j]<arr[indexMin]){
+					indexMin=j;
 				}
 			}
+			tmp = arr[indexMin];
+			arr[indexMin]= arr[i];
+			arr[i] =tmp;
 		}
+	}
+	public static void mergeSort(int left, int right){
+		
 	}
 	public static void qsort(int arr[],int left, int right){
 
