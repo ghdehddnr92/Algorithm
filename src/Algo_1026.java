@@ -16,7 +16,6 @@ public class Algo_1026 {
 		B = new int[N];
 		Atmp = new int[N];
 		Btmp = new int[N];
-
 		
 		for(int i=0;i<N;i++){
 			A[i] = in.nextInt();
@@ -24,7 +23,9 @@ public class Algo_1026 {
 		for(int i=0;i<N;i++){
 			B[i] = in.nextInt();
 		}
+		
 		Arrays.sort(A);
+		
 		for(int i=0;i<N;i++){
 			Atmp[i] = A[i];
 		}
