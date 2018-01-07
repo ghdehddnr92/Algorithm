@@ -44,6 +44,7 @@ public class Sw_1868_2 {
 					}
 				}
 			}
+			
 			for(int i=0;i<N;i++){
 				for(int j=0;j<N;j++){
 					if(arr[i][j] == 9 && visited[i][j] == false){		
@@ -52,6 +53,7 @@ public class Sw_1868_2 {
 					}
 				}
 			}
+			
 			System.out.println("#"+t+" "+turn);
 			turn=0;
 		}
@@ -85,7 +87,6 @@ public class Sw_1868_2 {
 	public static void bfs(int y, int x){
 		Queue<Bomb> q = new LinkedList<Bomb>();
 		visited[y][x] = true;
-		//System.out.println("y: "+y+" x: "+x);
 		q.add(new Bomb(y,x));
 
 		Bomb tmp;
