@@ -9,7 +9,6 @@ public class Sw_1814 {
 	static boolean visited[];
 	static int cnt = 0;
 	static String result;
-	//재귀로하니깐 스택오버플로우 남!
 	public static void main(String[]args){
 		Scanner in = new Scanner(System.in);
 		

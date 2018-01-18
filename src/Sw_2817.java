@@ -22,7 +22,7 @@ public class Sw_2817 {
 			}
 			
 			dfs(N,0);
-			System.out.println(cnt);
+			System.out.println("#"+t+" "+cnt);
 			cnt =0;
 		}
 	}
@@ -31,11 +31,14 @@ public class Sw_2817 {
 		if(depth == n){
 			for(int i=0;i<depth;i++){
 				if(visited[i]){
-					System.out.print(arr[i]+" ");
+					//System.out.print(arr[i]+" ");
 					sum+=arr[i];
+					if(sum>K){
+						return;
+					}
 				}
 			}
-			System.out.println("");
+			//System.out.println("");
 			if(sum==K){
 				cnt++;
 			}
