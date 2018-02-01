@@ -1,170 +1,144 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Sw_1767_2 {
-	static int map[][];
-	static int numProcessor = 0;
-	static int numLine = Integer.MAX_VALUE;
-	static int T, N;
-	static ArrayList<Point> list;
+   
+   static int map[][];
+   static int N;
+   static int LineCount = 0; //라인의 갯수
+   static int Answer = 0; //가장 많은 연결된 프로세서 갯수
+   static int Answer2 =0 ; //가장 적은 라인의 갯수
+   public static void main(String...msg) {
+      Scanner sc = new Scanner(System.in);
+      
+      int TestCase = sc.nextInt();
+      
+      for(int T =1 ; T<=TestCase; T++) {
+         map = new int[13][13];
+         N = sc.nextInt();
+         LineCount = 0;
+         Answer = 0;
+         Answer2 = Integer.MAX_VALUE;
+         ArrayList<Point> semi = new ArrayList<Point>();
+         for(int i = 1; i <= N; i++) {
+            for(int j = 1; j <=N; j++) {
+               map[i][j] = sc.nextInt();
+               if((i==1 || j==1 || i == N || j==N) && map[i][j]==1) {
+                  Answer++;
+                  continue;
+               }
+               if(map[i][j]==1)
+               semi.add(new Point(j,i)); //선을 이을 반도체리스트에 넣는다
+            }
+         }
+         Execute(0,semi,Answer);
 
-	static class Point {
-		int x;
-		int y;
+         System.out.println("#"+T+" "+Answer2);
+      }
+   }
+   public static void PrintMap() {
+      for(int i = 1; i <=N ; i++) {
+         for(int j =1 ; j<=N; j++) {
+            System.out.print(map[i][j]+" ");
+         }
+         System.out.println();
+      }
+      System.out.println("-----------------------");
+   }
 
-		public Point() {
-		}
 
-		public Point(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
+   public static void Execute(int index,ArrayList<Point> semi,int sc) {
+   
+      if(index==semi.size()) {
+         if(Answer < sc) {
+         
+         //   System.out.println("SC : "+sc+" LINECOUNT : "+LineCount);
+            Answer = sc;
+            //Answer2 = Math.min(Answer2, LineCount);
+            Answer2 = LineCount;
+            //PrintMap();
+         }else if(Answer==sc) {
+            Answer2 = Math.min(Answer2, LineCount);
+         }
+         return;
+      }
 
+      
+   
 
-	// i,j가 d 방향으로 전선을 놓는 경우
-	public static void dfs(int idx, int line, int connect, boolean check[][]) {
-		if (idx == list.size()) {
-			if (numProcessor < connect) {
-				numProcessor = connect;
-				numLine = line;
-				return;
-			} else if (numProcessor == connect) {
-				if (numLine > line) {
-					numLine = line;
-					return;
-				}
-			}
-			return;
-		}
-		Point cur = list.get(idx);
-		int x = cur.x; // row
-		int y = cur.y; // col
+      Point pos = semi.get(index);
+      for(int i = 0; i < 5; i++) { //4방향 탐색 + 선택안하고 넘기기
+         if(i==4) { //넘기기{
+            Execute(index+1,semi,sc);
+            break;
+         }
+         if(SearchLine(i,pos.y,pos.x)) {
+            FillLine(i, pos.y, pos.x, 2);
+            Execute(index+1,semi,sc+1);
+            FillLine(i, pos.y, pos.x, 0);
+         }
+      }
+   
+   }
+   public static boolean SearchLine(int dir,int y,int x) {
+      boolean res = true;
+      switch(dir) {
+         case 0: //상
+            for(int i = y-1; i>=1; i--) {
+               if(map[i][x]!=0)
+                  return false;
+            }
+            break;
+         case 1:// 하
+            for(int i = y+1; i<=N; i++) {
+               if(map[i][x]!=0)
+                  return false;
+            }
+            break;
+         case 2:// 좌
+            for(int i = x-1; i>=1; i--) {
+               if(map[y][i]!=0)
+                  return false;
+            }
+            break;
+         case 3://우
+            for(int i = x+1; i<=N; i++) {
+               if(map[y][i]!=0)
+                  return false;
+            }
+            break;
+      }
+      return res;
+   }
+   
+   public static void FillLine(int dir,int y,int x,int type) {
 
-		int up = 0, down = 0, left = 0, right = 0;
-		boolean collision = false; // 충돌 체크
-
-		// 1. up
-		for (int i = x - 1; i >= 0; i--) {
-			if (check[i][y]||map[i][y]==1) {
-				collision = true;
-			}
-		}
-		if (!collision) {// 충돌 경우가 없다면 재귀를 타본다
-			for (int i = x - 1; i >= 0; i--) { // 전선 놓고
-				check[i][y] = true;
-				up++;
-			}
-			dfs(idx + 1, line+up, connect + 1, check); // 재귀
-			for (int i = x - 1; i >= 0; i--) { // 원상복귀
-				if (map[i][y] != 1){
-					check[i][y] = false;
-				}
-			}
-		}
-		collision = false; // 충돌 체크 원복
-
-		// 2. down
-		for (int i = x + 1; i < N; i++) {
-			if (check[i][y]||map[i][y]==1) {
-				collision = true;
-			}
-		}
-		if (!collision) {
-			for (int i = x + 1; i < N; i++) {
-				check[i][y] = true;
-				down++;
-			}
-			dfs(idx + 1, line + down, connect + 1, check);// 재귀
-			for (int i = x + 1; i < N; i++) { // 원상복귀. 
-				if (map[i][y] != 1){
-					check[i][y] = false;
-				}
-			}
-		}
-		collision = false;
-
-		
-		
-		// 재귀 3 left
-		for (int i = y - 1; i >= 0; i--) {
-			if (check[x][i]||map[x][i]==1) {
-				collision = true;
-			}
-		}
-		if (!collision) {// 충돌 경우가 없다면 재귀를 타본다
-			for (int i = y - 1; i >= 0; i--) { // 전선 놓고
-				check[x][i] = true;
-				left++;
-			}
-			dfs(idx + 1, line + left, connect + 1, check); // 재귀
-			for (int i = y - 1; i >= 0; i--) { // 원상복귀
-				if (map[x][i] != 1 ){
-					check[x][i] = false;
-				}
-			}
-		}
-		collision = false;
-
-		// 재귀 4 right
-		for (int i = y + 1; i < N; i++) {
-			if (check[x][i]||map[x][i]==1) {
-				collision = true;
-			}
-		}
-		if (!collision) {
-			for (int i = y + 1; i < N; i++) {
-				check[x][i] = true;
-				right++;
-			}
-//			System.out.println(idx + " right rec: " + right);
-			dfs(idx + 1, line + right, connect + 1, check);// 재귀
-			for (int i = y + 1; i < N; i++) { // 원상복귀
-				if (map[x][i] != 1){
-					check[x][i] = false;
-				}
-			}
-		}
-
-		collision = false;
-		// 아무것도 안움직이고 다음 점 살피는 경우
-		dfs(idx + 1, line, connect, check);
-		return;
-	}
-
-	public static void main(String[] args) throws NumberFormatException, IOException {
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		T = Integer.parseInt(br.readLine());
-		for (int t = 1; t <= T; t++) {
-			N = Integer.parseInt(br.readLine());
-			map = new int[N][N];
-			boolean check[][] = new boolean[N][N];
-			list = new ArrayList<>();
-			
-			for (int i = 0; i < N; i++) {
-				StringTokenizer st = new StringTokenizer(br.readLine());
-				for (int j = 0; j < N; j++) {
-					map[i][j] = Integer.parseInt(st.nextToken());
-					if (map[i][j] == 1) {	//프로세서 있는 부분은 체크 true
-						check[i][j] = true;
-					}
-					if (map[i][j] == 1 && i != 0 && j != 0) {	//프로세서 있는 가장자리 부분은 체크 true
-						check[i][j] = true;
-						list.add(new Point(i, j));
-					}
-				}
-			}
-			dfs(0, 0, 0, check);
-			if(numLine !=Integer.MAX_VALUE)
-				System.out.println("#" + t + " " + numLine);
-			else 
-				System.out.println("#" + t + " " + 0);
-		} // end of test
-	}
+      switch(dir) {
+         case 0: //상
+            for(int i = y-1; i>=1; i--) {
+               LineCount = type==2 ? LineCount+1 : LineCount-1;
+               map[i][x]=type;
+            }
+            break;
+         case 1:// 하
+            for(int i = y+1; i<=N; i++) {
+               LineCount = type==2 ? LineCount+1 : LineCount-1;
+               map[i][x]=type;
+            }
+            break;
+         case 2:// 좌
+            for(int i = x-1; i>=1; i--) {
+               LineCount = type==2 ? LineCount+1 : LineCount-1;
+               map[y][i]=type;
+            }
+            break;
+         case 3://우
+            for(int i = x+1; i<=N; i++) {
+               LineCount = type==2 ? LineCount+1 : LineCount-1;
+               map[y][i]=type;
+            }
+            break;
+      }
+   }
 }

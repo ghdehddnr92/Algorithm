@@ -120,6 +120,7 @@ public class Sw_1767 {
 				visited[i][tmp.x]=false;
 			}
 		}
+		dfs(index+1,core,length);
 	}
 	public static void checkAround(int y, int x){
 		dirCheck = new boolean[4];

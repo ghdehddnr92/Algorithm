@@ -12,7 +12,7 @@ public class Sw_2819 {
 	//static Queue <String> q = new LinkedList<String>();
 	static int res[];
 	static PriorityQueue<String>q = new PriorityQueue<String>();
-	static int result=0;
+	static long result=0;
 	public static void main(String[]args){
 		Scanner in = new Scanner(System.in);
 
