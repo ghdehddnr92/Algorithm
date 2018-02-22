@@ -27,7 +27,7 @@ public class Sw_3316_2 {
 				
 				for(int j=1;j<16;j++){ // 첫날 
 					for(int k=1;k<16;k++){  // 둘째날 
-						if((j&k) < 0 || (k&manage)<0){
+						if((j & k) < 0 || (k & manage)<0){
 							continue;
 						}
 						else{

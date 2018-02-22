@@ -1,23 +1,33 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.PriorityQueue;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Sw_1860 {
 	static int T;
 	static int N,M,K;
-	static int cnt=0;
-	static int time =0;
+	static int cnt = 0;
+	static int time = 0;
+	
 	static PriorityQueue<Integer> pr;
 	static String result="Possible";
-	public static void main(String[]args){
-		Scanner in = new Scanner(System.in);
-		T = in.nextInt();
+	public static void main(String[]args) throws NumberFormatException, IOException{
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		T = Integer.parseInt(br.readLine());
+		
 		for(int t=1;t<=T;t++){
-			N = in.nextInt();
-			M = in.nextInt();
-			K = in.nextInt();
+			st = new StringTokenizer(br.readLine());
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			K = Integer.parseInt(st.nextToken());
+			
 			pr = new PriorityQueue<Integer>();
+			st = new StringTokenizer(br.readLine());
 			for(int i=0;i<N;i++){
-				pr.add(in.nextInt());
+				pr.add(Integer.parseInt(st.nextToken()));
 			}
 
 			solve();
@@ -31,17 +41,26 @@ public class Sw_1860 {
 	public static void solve(){
 		while(!pr.isEmpty()){
 			int cus = pr.poll();
-			//System.out.println("cus:"+cus);
-			while(time!=cus){
 			
+			if(time == cus){
+				if(cnt>0){
+					cnt +=-1;
+				}
+				else{
+					result="Impossible";
+					return;
+				}
+			}
+			
+			while(time!=cus){
+				
 				time++;
-			//	System.out.println("time:"+time);
+
 				if(time%M==0){
 					cnt+=K;
 				}
 
 				if(time==cus){
-			//		System.out.println("cnt:"+cnt);
 					if(cnt>0){
 						cnt+=-1;
 					}

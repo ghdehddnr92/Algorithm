@@ -4,7 +4,7 @@ public class Algo_1182 {
 	static int N,S;
 	static int arr[];
 	static int cnt = 0;
-	static int res = 0;
+	static int sum = 0;
 	public static void main(String[]args){
 		Scanner in = new Scanner(System.in);
 		
@@ -16,18 +16,24 @@ public class Algo_1182 {
 		for(int i=0;i<N;i++){
 			arr[i]= in.nextInt();
 		}
+		dfs(0);
 		
-		for(int i=0;i<N;i++){
-			for(int j=i;j<N;j++){
-				res += arr[j];
-				if(res == S){
-				//	System.out.println("cnt증가");
-					cnt++;
-				}
-				//System.out.println("res :" + res);
-			}
-			res =0;
-		}
 		System.out.println(cnt);
+	}
+	public static void dfs(int index){
+		if(index == N){
+			return;
+		}
+		
+		if(sum+arr[index] == S){
+			cnt++;
+		}
+		
+		dfs(index+1); // 원소를 포하시키지 않고 시도 
+		
+		sum+=arr[index];
+		dfs(index+1); //더하고시도 
+		
+		sum -= arr[index];
 	}
 }
