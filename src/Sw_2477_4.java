@@ -7,7 +7,9 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+//차량정비소 
 public class Sw_2477_4 {
+	
 	static int T;
 	static int jubsu,jungbi,K,A,B;
 	static int jubsuTime[];
@@ -17,9 +19,12 @@ public class Sw_2477_4 {
 	static PriorityQueue<Customer>jubsuWaitQ;
 	static PriorityQueue<Customer>jungbiWaitQ;
 	static Queue<Customer> finish;
+	
 	static Customer jungbiArr[];
 	static Customer jubsuArr[];
 	static int turn = 0;
+	static int res = 0;
+	
 	public static void main(String[]args) throws NumberFormatException, IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -57,53 +62,29 @@ public class Sw_2477_4 {
 				timeQ.add(new Customer(i+1,Integer.parseInt(st.nextToken()),-1,-1)); // 고객번호,도착 시간, 이용접수, 이용정
 			}
 
-			boolean flag = true;
-			while(flag){  //사람이 모두 빠져나갔을 경우 종료 .
-				if(timeQ.isEmpty() && jubsuWaitQ.isEmpty() && jungbiWaitQ.isEmpty() && jubsuIsEmpty() && jungbiIsEmpty()){
-					flag = false;
-				}
-				System.out.println("turn : "+turn+"---------------------------");
-				Customer tmp= null;
-				System.out.println("테이블 사이즈:"+timeQ.size());
-				if(!timeQ.isEmpty()){
-					while(!timeQ.isEmpty() && timeQ.peek().arriveTime<=turn){ //arriveTime보다 전일 경우에만 뺸다.
-						tmp = timeQ.poll();
-						System.out.println("고객번호:"+tmp.cusNum);
-						//-----------접수 창고에 자리가 있는지 확인------------
-						if(checkJubsu()!=-1){ //자리가있을 경우, 빈자리로 바로 넣음
-							jubsuWaitQ.add(tmp);
-							tmp = jubsuWaitQ.poll();
-							int index = checkJubsu();
-							System.out.println("자리가 있어서  "+index+"에 "+tmp.cusNum+"넣음 ");
-							jubsuArr[index]=tmp;
-							tmp.aNum = index;
-							System.out.println("접수시간:"+jubsuTime[index]);
-							tmp.aNumTime = jubsuTime[index];
-						}
-						else{//없을경우. waitQ 넣음 
-							System.out.println("자리가 없어 서"+tmp.cusNum+"은 대기 큐로 이동");
-							jubsuWaitQ.add(tmp);
-						}
-						System.out.println("접수 대기 창고 크기 :"+jubsuWaitQ.size());
-					}
-				}
-				// ---------- 접수 창고 일 처리 -------------
+			while(finish.size()!=K){  //사람이 모두 빠져나갔을 경우 종료 .
+				
 				jubsuPlay();
-				//	showJubsu();
-				if(!jungbiWaitQ.isEmpty()){
-					if(checkJungbi()!= -1){ // 빈자리가 있을 경우 
-						tmp = jungbiWaitQ.poll();
-						int index = checkJungbi();
-						System.out.println("자리가 있어서 정비창구 "+index+"에 "+tmp.cusNum+"넣음 ");
-						jungbiArr[index]=tmp;
-						tmp.bNum = index;
-						System.out.println("접수시간:"+jungbiTime[index]);
-						tmp.bNumTime = jungbiTime[index];
-					}
-				}
+				addJungbi();
 				jungbiPlay();
+				addJubsu();
+				
 				turn++;
 			}
+			while(!finish.isEmpty()){
+				Customer tmp = finish.poll();
+				if(tmp.aNum == A && tmp.bNum == B){
+					res += tmp.cusNum;
+				}
+			}
+			if(res !=0){
+				System.out.println("#"+t+" "+res);
+			}
+			else{
+				System.out.println("#"+t+" "+-1);
+			}
+			res =0;
+			turn =0;
 		}
 	}
 	public static int checkJubsu(){
@@ -124,14 +105,55 @@ public class Sw_2477_4 {
 		}
 		return -1;
 	}
+	public static void addJubsu(){
+		Customer tmp = null;
+		if(!timeQ.isEmpty()){
+			while(true){ //arriveTime보다 전일 경우에만 뺸다.
+				if(timeQ.isEmpty()){
+					break;
+				}
+				if(timeQ.peek().arriveTime>turn){
+					break;
+				}
+				tmp = timeQ.poll();
+	
+				if(checkJubsu()!=-1){ //자리가있을 경우, 빈자리로 바로 넣음
+					jubsuWaitQ.add(tmp);
+					tmp = jubsuWaitQ.poll();
+					int index = checkJubsu();
+					jubsuArr[index]=tmp;
+					tmp.aNum = index;
+					tmp.aNumTime = jubsuTime[index];
+				}
+				else{//없을경우. waitQ 넣음 
+					jubsuWaitQ.add(tmp);
+				}
+			}
+		}
+	}
+	public static void addJungbi(){
+		Customer tmp = null;
+		if(!jungbiWaitQ.isEmpty()){
+			while(checkJungbi()!=-1){
+
+				if(!jungbiWaitQ.isEmpty()){
+					tmp = jungbiWaitQ.poll();
+					int index = checkJungbi();
+					jungbiArr[index]=tmp;
+					tmp.bNum = index;
+					tmp.bNumTime = jungbiTime[index];
+				}
+				if(jungbiWaitQ.isEmpty()){
+					break;
+				}
+			}
+		}
+	}
 	public static void jubsuPlay(){
 		for(int i=1;i<jubsuArr.length;i++){
 			if(jubsuArr[i]!=null){
-				System.out.println(i+"고객은 :"+jubsuArr[i].cusNum+"의 접수 시간은 "+jubsuArr[i].aNumTime);
 				jubsuArr[i].aNumTime--;
 				if(jubsuArr[i].aNumTime == 0){
-					System.out.println("시간 완료 되서 "+jubsuArr[i].cusNum+"은 정비 대기로 이동");
-					System.out.println("정비 대기 사이즈 :"+jungbiWaitQ.size());
 					jubsuArr[i].waitTurn = turn;
 					jungbiWaitQ.add(jubsuArr[i]);
 
@@ -141,6 +163,9 @@ public class Sw_2477_4 {
 						tmp.aNum = i;
 						tmp.aNumTime = jubsuTime[i];
 					}
+					else{
+						jubsuArr[i] = null;
+					}
 				}
 			}
 		}
@@ -148,10 +173,8 @@ public class Sw_2477_4 {
 	public static void jungbiPlay(){
 		for(int i=1;i<jungbiArr.length;i++){
 			if(jungbiArr[i]!=null){
-				System.out.println(i+"고객은 :"+jungbiArr[i].cusNum+"의 접수 시간은 "+jungbiArr[i].bNumTime);
 				jungbiArr[i].bNumTime--;
 				if(jungbiArr[i].bNumTime==0){
-					System.out.println("시간 완료 되서 "+jungbiArr[i].cusNum+"은 완료 큐 이동");
 					finish.add(jungbiArr[i]);
 					if(!jungbiWaitQ.isEmpty()){
 						Customer tmp = jungbiWaitQ.poll();
@@ -159,21 +182,12 @@ public class Sw_2477_4 {
 						tmp.bNum = i;
 						tmp.bNumTime = jungbiTime[i];
 					}
+					else{
+						jungbiArr[i] = null;
+					}
 				}
 			}
 		}
-	}
-	public static void showJubsu(){
-		System.out.println("현재 접수 창고 ----");
-		for(int i=1;i<jubsuArr.length;i++){
-			if(jubsuArr[i]!=null){
-				System.out.print(jubsuArr[i].cusNum+" ");
-			}
-			else{
-				System.out.print("X ");
-			}
-		}
-		System.out.println("");
 	}
 	public static boolean jubsuIsEmpty(){
 		for(int i=1;i<jubsuArr.length;i++){
@@ -206,7 +220,6 @@ class Customer{
 		this.aNum = aNum;
 		this.bNum= bNum;
 	}
-
 }
 class JubsuComparator implements Comparator<Customer>{
 
@@ -242,5 +255,4 @@ class JungbiComparator implements Comparator<Customer>{
 			}
 		}
 	}
-
 }

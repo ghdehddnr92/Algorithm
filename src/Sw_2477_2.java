@@ -1,118 +1,232 @@
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
+//package sam180308;
+//
 //import java.util.LinkedList;
+//import java.util.PriorityQueue;
 //import java.util.Queue;
-//import java.util.StringTokenizer;
+//import java.util.Scanner;
 //
-//public class Sw_2477_2 {
+//public class swtest_carcenter2477 {
+//   static int n, m, k, a, b, tc, rp;
+//   static int[] ai, bi;
+//   static Person[] ti;
+//   static PriorityQueue<Integer> receptionque;
+//   static PriorityQueue<Integer> repairque;
+//   static Queue<Person> repairWaitQue = new LinkedList<>();
 //
-//	static int T;
-//	static int N,M,K,A,B;
-//	static int a[];
-//	static int b[];
-//	static Queue<People>timeQ;
-//	static Queue<People>waitA;
-//	static Queue<People>waitB;
-//	static Queue<People>endQ;
-//	static People jubsu[];
-//	static People jeongbi[];
-//	static int Acnt;
-//	static int Bcnt;
-//	static int currentA=0;
-//	static int currentB=0;
-//	static int res=0;
-//	public static void main(String[]arsgs) throws NumberFormatException, IOException{
-//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//   public static int find() {
+//      int ans = 0;
+//      boolean check = false;
 //
-//		T = Integer.parseInt(br.readLine());
+//      for (Person p : ti) {
+//         if (p.getReceptionNum() == a && p.getRepairNum() == b) {
+//            ans += p.getNumber() + 1;
+//            check = true;
+//         }
+//      }
+//      if (check)
+//         return ans;
+//      else
+//         return -1;
+//   }
 //
-//		for(int tc=1;tc<=T;tc++){
-//			String line= br.readLine();
-//			StringTokenizer st = new StringTokenizer(line);
-//			N = Integer.parseInt(st.nextToken());
-//			M = Integer.parseInt(st.nextToken());
-//			K = Integer.parseInt(st.nextToken());
-//			A = Integer.parseInt(st.nextToken());
-//			B = Integer.parseInt(st.nextToken());
+//   public static void repair() {
+//      PriorityQueue<Person> repairPQue = new PriorityQueue<>();
+//      Person p1 = repairWaitQue.poll();
+//      p1.setRepairNum(0);
+//      p1.setCalTime(p1.getArrive() + bi[repairque.poll()]);
+//      repairPQue.offer(p1);
+//      int nowtime = repairPQue.peek().calTime;
 //
-//			a = new int[N+1];
-//			b = new int[M+1];
+//      while (!repairWaitQue.isEmpty()) {
 //
-//			line = br.readLine();
-//			st = new StringTokenizer(line);
-//			for(int aInput=1;aInput<=N; aInput++){
-//				a[aInput] = Integer.parseInt(st.nextToken());
-//			}
-//			line = br.readLine();
-//			st = new StringTokenizer(line);
-//			for(int bInput=1;bInput<=M; bInput++){
-//				b[bInput] = Integer.parseInt(st.nextToken());
-//			}
-//			timeQ = new LinkedList<>();
-//			line = br.readLine();
-//			st = new StringTokenizer(line);
-//			for(int k=1;k<=K;k++){
-//				timeQ.add(new People(k,Integer.parseInt(st.nextToken()),0,-1,-1));
-//			}
-//			waitA = new LinkedList<>();
-//			waitB = new LinkedList<>();
-//			endQ = new LinkedList<>();
-//			jubsu = new People[N+1];
-//			jeongbi = new People[M+1];
+//         while (!repairWaitQue.isEmpty() && nowtime > repairWaitQue.peek().arrive  && !repairque.isEmpty()) {
+//            Person nowp = repairWaitQue.poll();
+//            int numRepair = repairque.poll();
+//            nowp.setRepairNum(numRepair);
+//            nowp.setCalTime(bi[numRepair] + nowp.getArrive());
+//            repairPQue.offer(nowp);
+//            nowtime = repairPQue.peek().calTime;
+//         }
 //
-//			int timer=0;
-//			while(!(waitA.isEmpty() && waitB.isEmpty() && timeQ.isEmpty() && Acnt==K && Bcnt==K)){
-//				// 1. timerq 에서 t에 맞게 접수 창고에 배치, 꽉찼을 경우 wait
-//				// 2. 배치까지 끝냄 
-//				People person=null;
-//				if(!timeQ.isEmpty() && timeQ.peek().time==timer){	
-//					while(timeQ.peek().time==timer){
-//						person = timeQ.poll();
-//						System.out.println("person time Q에서뺌"+person.num);
-//						if(currentA<N){
-//							for(int i=1;i<=N;i++){
-//								if(jubsu[i]==null){
-//									jubsu[i]=person;
-//									person.aNumber=i;
-//									currentA++;
-//									break;
-//								}
-//							}
-//						}
-//						else{
-//							System.out.println("waitQ 에 추가"+person.num);
-//							waitA.add(person);
-//						}
-//						if(timeQ.size()==0){
-//							break;
-//						}
-//					}
-//				}
+//         if (repairWaitQue.isEmpty() && !repairPQue.isEmpty()) {
+//            while (!repairPQue.isEmpty()) {
+//               Person nextp = repairPQue.poll();
+//            }
+//            return;
+//         }
 //
-//				timer++;
-//			}
-//			for(int i=0;i<endQ.size();i++){
-//				if(endQ.peek().aNumber==A || endQ.peek().bNumber==B){
-//					res+=endQ.peek().num;
-//					endQ.poll();
-//				}
-//			}
-//			System.out.println("#"+tc+" "+res);
-//		}
-//	}
+//         Person nextp = repairPQue.poll();
+//         repairque.add(nextp.getRepairNum());
+//
+//         if (repairPQue.isEmpty())
+//            nowtime = Integer.MAX_VALUE;
+//         else
+//            nowtime = repairPQue.peek().calTime;
+//
+//      }
+//
+//   }
+//
+//   public static void repairWait(Person person) {
+//      repairWaitQue.offer(person);
+//   }
+//
+//   public static void reception() {
+//      PriorityQueue<Person> receptionPQue = new PriorityQueue<Person>();
+//      int realTime = 0;
+//      Person p1 = ti[0];
+//      p1.setReceptionNum(0);
+//      p1.setCalTime(p1.getArrive() + ai[receptionque.poll()]);
+//      receptionPQue.offer(p1);
+//      int nowtime = receptionPQue.peek().calTime;
+//
+//      int i = 1;
+//      while (i < k) {
+//         while (i < k && nowtime > ti[i].arrive  && !receptionque.isEmpty()) {
+//            Person nowp = ti[i];
+//            int numRecept = receptionque.poll();
+//            nowp.setReceptionNum(numRecept);
+//            nowp.setCalTime(ai[numRecept] + nowp.getArrive() + nowp.getWaiting());
+//            receptionPQue.offer(nowp);
+//            nowtime = receptionPQue.peek().calTime;
+//            i++;
+//         }
+//
+//         if (i == k && !receptionPQue.isEmpty()) {
+//            while (!receptionPQue.isEmpty()) {
+//               Person nextp = receptionPQue.poll();
+//               nextp.setArrive(ai[nextp.getReceptionNum()] + nextp.getArrive() + nextp.getWaiting());
+//               repairWait(nextp);
+//            }
+//            break;
+//         }
+//
+//         Person nextp = receptionPQue.poll();
+//         realTime = nextp.getCalTime();
+//         ti[i].setWaiting(realTime - ti[i].getArrive());
+//         nextp.setArrive(ai[nextp.getReceptionNum()] + nextp.getArrive() + nextp.getWaiting());
+//         repairWait(nextp);
+//         receptionque.offer(nextp.getReceptionNum());
+//
+//         if (receptionPQue.isEmpty() || receptionque.size()==n)
+//            nowtime = Integer.MAX_VALUE;
+//         else
+//            nowtime = receptionPQue.peek().calTime;
+//
+//      }
+//      repair();
+//
+//   }
+//
+//   public static void main(String[] args) {
+//      Scanner sc = new Scanner(System.in);
+//      tc = sc.nextInt();
+//      int testcase = 1;
+//      while (tc-- > 0) {
+//         n = sc.nextInt();
+//         m = sc.nextInt();
+//         k = sc.nextInt();
+//         a = sc.nextInt() - 1;
+//         b = sc.nextInt() - 1;
+//         rp = 0;
+//
+//         sc.nextLine();
+//         ai = new int[n];
+//         bi = new int[m];
+//         ti = new Person[k];
+//         receptionque = new PriorityQueue<>();
+//         repairque = new PriorityQueue<>();
+//
+//         String[] line = sc.nextLine().split(" ");
+//         for (int i = 0; i < n; i++) {
+//            ai[i] = Integer.parseInt(line[i]);
+//            receptionque.add(i);
+//         }
+//
+//         line = sc.nextLine().split(" ");
+//         for (int i = 0; i < m; i++) {
+//            bi[i] = Integer.parseInt(line[i]);
+//            repairque.add(i);
+//         }
+//
+//         line = sc.nextLine().split(" ");
+//         for (int i = 0; i < k; i++) {
+//            int temp = Integer.parseInt(line[i]);
+//            Person p = new Person(i, temp);
+//            ti[i] = p;
+//         }
+//
+//         reception();
+//         System.out.println("#" + (testcase++) + " " + find());
+//      }
+//   }
 //}
-//class People{
-//	int num;
-//	int time;
-//	int aNumber;
-//	int bNumber;
-//	int startTime;
 //
-//	People(int num, int time, int startTime, int aNumber, int bNumber){
-//		this.num =num;
-//		this.time = time;
-//		this.aNumber = aNumber;
-//		this.bNumber= bNumber;
-//	}
+//class Person implements Comparable<Person> {
+//   int number;
+//   int arrive;
+//   int receptionNum;
+//   int RepairNum;
+//   int calTime;
+//   int waiting;
+//
+//   public Person(int number, int arrive) {
+//      this.number = number;
+//      this.arrive = arrive;
+//      this.waiting = 0;
+//   }
+//
+//   public int getWaiting() {
+//      return waiting;
+//   }
+//
+//   public void setWaiting(int waiting) {
+//      this.waiting = waiting;
+//   }
+//
+//   public void setArrive(int arrive) {
+//      this.arrive = arrive;
+//   }
+//
+//   public int getReceptionNum() {
+//      return receptionNum;
+//   }
+//
+//   public void setReceptionNum(int receptionNum) {
+//      this.receptionNum = receptionNum;
+//   }
+//
+//   public int getRepairNum() {
+//      return RepairNum;
+//   }
+//
+//   public void setRepairNum(int repairNum) {
+//      RepairNum = repairNum;
+//   }
+//
+//   public int getCalTime() {
+//      return calTime;
+//   }
+//
+//   public void setCalTime(int calTime) {
+//      this.calTime = calTime;
+//   }
+//
+//   public int getNumber() {
+//      return number;
+//   }
+//
+//   public int getArrive() {
+//      return arrive;
+//   }
+//
+//   @Override
+//   public int compareTo(Person target) {
+//      if (this.calTime > target.calTime)
+//         return 1;
+//      else if (this.calTime < target.calTime)
+//         return -1;
+//      return 0;
+//   }
+//
 //}
