@@ -56,11 +56,11 @@ public class Algo_2105 {
 	public static void dfs(int y, int x,int d){
 		visited[y][x] = true; // 방문 체크 
 		list.add(arr[y][x]);
-		System.out.println(list);
+		//System.out.println(list);
 		int lastX = x+dx[3];
 		int lastY = y+dy[3];
 		if((d==2 || d==3) && lastX >= 0 && lastY >= 0 && lastY <N && lastX <N && startX == lastX && lastY == startY){
-			System.out.println(y+" "+x+" "+d);
+		//	System.out.println(y+" "+x+" "+d);
 			max = Math.max(max, list.size());
 			return;
 		}

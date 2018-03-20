@@ -65,4 +65,19 @@ public class SwBrute {
 			}
 		}
 	}
+	//조합 
+	public static void dfs(int depth, int index){
+		if(depth == 3){
+			for(int i=0;i<3;i++){
+				System.out.print(tmp[i]+" ");
+			}
+			System.out.println("");
+			return;
+		}
+		
+		for(int i=index;i<=N;i++){
+			tmp[depth] = i;
+			dfs(depth+1, i+1);//방금 전에 넣은 수보다큰 수들만 들어가야함!!!!
+		}
+	}
 }
