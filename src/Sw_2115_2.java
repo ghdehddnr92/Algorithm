@@ -51,6 +51,7 @@ public class Sw_2115_2 {
 			
 			valueMax =0;
 			mulMax =0;
+			
 			for(int i=0;i<N;i++){
 				for(int j=0;j<=N-M;j++){
 					boolean flag = true;

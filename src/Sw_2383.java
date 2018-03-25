@@ -8,12 +8,14 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Sw_2383 {
+	
 	static int T,N;
 	static int arr[][];
 	static int min =Integer.MAX_VALUE;
 	static int personCnt =0;
 	static int stairCnt = 0;
 	static int stairArr[][];
+	
 	static ArrayList<Person> total;
 	static PriorityQueue<Person> q;
 	static Queue<Person> firstStair;
@@ -21,6 +23,7 @@ public class Sw_2383 {
 	static Queue<Person> secondStair;
 	static Queue<Person> secondTmp;
 	static Queue<Person> finish;
+	
 	public static void main(String[]args) throws NumberFormatException, IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
@@ -61,21 +64,20 @@ public class Sw_2383 {
 
 			System.out.println("#"+t+" "+min);
 			min =Integer.MAX_VALUE;
+			stairCnt =0;
+			personCnt =0;
 		}
 	}
 	public static void solve(){
 		for(int i=0;i<(1<<personCnt);i++){
 			for(int j=0;j<personCnt;j++){
 				if((i & (1<<j))>0){
-					System.out.print((j+1)+" ");
 					total.get(j).stair =1;
 				}
 				else{
 					total.get(j).stair =2;
 				}
 			}
-			System.out.println("");
-			System.out.println("----------------");
 
 			//도착 시간 계산 
 			for(int k=0;k<total.size();k++){
@@ -91,16 +93,13 @@ public class Sw_2383 {
 				}
 			}
 
-			for(int k=0;k<total.size();k++){
-				System.out.print(total.get(k).moveTime+" ");
-			}
-			System.out.println("");
 			int time = 0;
+			
 			while(finish.size()!=personCnt){
-				System.out.println("time :"+time);
-				System.out.println("1번계단 수 :"+firstStair.size());
+				
 				if(!firstStair.isEmpty()){
-					for(int k=0;k<firstStair.size();k++){
+					int size = firstStair.size();
+					for(int k=0;k<size;k++){
 						Person tmp = firstStair.poll();
 						tmp.stairTime -= 1;
 						if(tmp.stairTime ==0){
@@ -114,9 +113,10 @@ public class Sw_2383 {
 						}
 					}
 				}
-				System.out.println("2번계단 수:"+secondStair.size());
+	
 				if(!secondStair.isEmpty()){
-					for(int k=0;k<secondStair.size();k++){
+					int size = secondStair.size();
+					for(int k=0;k<size;k++){
 						Person tmp = secondStair.poll();
 						tmp.stairTime -= 1;
 						if(tmp.stairTime ==0){
@@ -130,53 +130,46 @@ public class Sw_2383 {
 						}
 					}
 				}
-				System.out.println("q.size :"+q.size());
+	
 				if(!q.isEmpty()){
-					//System.out.println(q.peek().moveTime+" ");
-					while(q.peek().moveTime==time){
+					while(!q.isEmpty() && q.peek().moveTime==time){
 						Person tmp = q.poll();
 						if(tmp.stair == 1){ //1번 계단으로
-							
 							if(firstStair.size()<3){
-								System.out.println("1번계단으로 ");
 								firstStair.add(tmp);
 							}
 							else{
-								System.out.println("1 대기방 으로 ");
 								firstTmp.add(tmp);
 							}
 						}
 						else{ // 2번 계단으로 
-						
 							if(secondStair.size()<3){
-								System.out.println("2번계단으로 ");
 								secondStair.add(tmp);
 							}
 							else{
-								System.out.println("2 대기방으로 ");
 								secondTmp.add(tmp);
 							}
 						}
 					}
 				}
-				
 				time++;
 			}
 			if(min>time){
 				min = time;
 			}
 			finish.clear();
-			System.out.println("time :"+time);
 		}
 	}
 }
 class Person implements Comparable<Person>{
+	
 	int num;
 	int y;
 	int x;
 	int stair;
 	int moveTime;
 	int stairTime;
+	
 	Person(int y, int x, int num){
 		this.y = y;
 		this.x = x;
@@ -193,5 +186,4 @@ class Person implements Comparable<Person>{
 			return -1;
 		}
 	}
-
 }
