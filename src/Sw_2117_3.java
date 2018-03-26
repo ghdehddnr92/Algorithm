@@ -42,7 +42,7 @@ public class Sw_2117_3 {
 
 			for(int i=0;i<N;i++){
 				for(int j=0;j<N;j++){
-					for(int k=2;k<=N+1;k++){
+					for(int k=1;k<=N+1;k++){
 						calValue(k);
 						bfs(i,j,0,k);
 						resetVisited();
