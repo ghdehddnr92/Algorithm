@@ -103,11 +103,7 @@ public class Algo_14502_3 {
 	public static void dfs(int index, int depth){
 		if(index == 3){
 			makeMap();
-			for(int i=0;i<3;i++){
-				System.out.print(tmp[i]+" ");
-			}
-			
-			System.out.println("");
+		
 			if(map[tmp[0]/M][tmp[0]%M]==0 && map[tmp[1]/M][tmp[1]%M]==0 && map[tmp[2]/M][tmp[2]%M]==0){
 				map[tmp[0]/M][tmp[0]%M] = 1 ;
 				map[tmp[1]/M][tmp[1]%M] = 1;
@@ -130,7 +126,7 @@ public class Algo_14502_3 {
 			dfs(index+1,i+1);
 		}
 	}
-		
+
 }
 class Yunguso{
 	int y;
