@@ -24,7 +24,7 @@ public class Algo_1987_2 {
 				arr[i][j] = line.charAt(j)+"";
 			}
 		}
-		showArr();
+	//	showArr();
 		visited[0][0] = true;
 		list.add(arr[0][0]);
 		dfs(0,0);
@@ -39,6 +39,7 @@ public class Algo_1987_2 {
 		for(int i=0;i<4;i++){
 			int ny = r+dy[i];
 			int nx = c+dx[i];
+			
 			if(ny<0 || nx<0 || ny>=y || nx>=x){
 				continue;
 			}
