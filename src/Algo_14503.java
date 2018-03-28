@@ -1,62 +1,133 @@
 import java.util.Scanner;
 
 public class Algo_14503 {
-	static int N,M,r,c,d;
+	static int N, M;
 	static int arr[][];
-	static boolean visited[][];
-	static int cnt=0;
-	static int finished=0;
-	static int dr[]={-1,0,1,0};
-	static int dc[]={0,1,0,-1};
+	static int y,x,d;
+	static int dirArr[]={};
+	static int res =0;
 	public static void main(String[]args){
-	
+
 		Scanner in = new Scanner(System.in);
-		N= in.nextInt();
-		M=in.nextInt();
-		r = in.nextInt();
-		c = in.nextInt();
+		N = in.nextInt();
+		M = in.nextInt();
+		y = in.nextInt();
+		x = in.nextInt();
 		d = in.nextInt();
+		arr = new int[N][M];
 		
-		arr= new int[N][M];
-		visited = new boolean[N][M];
 		for(int i=0;i<N;i++){
 			for(int j=0;j<M;j++){
-				arr[i][j] =in.nextInt();
+				arr[i][j] = in.nextInt();
 			}
 		}
+		solve();
+		System.out.println(res);
+	}
+	public static boolean check(){
+
+		//그 다음 방향 체크 
+		if(d ==0){
+			d = 3;
+		}
+		else{
+			d -= 1;
+		}
 		
-		while(true){
-			if(arr[r][c]==0){ //1.번 현재를 청소
-				arr[r][c]=2;
-				cnt++;
+		if(d == 0){
+			if(y-1 >=0 && arr[y-1][x]==0){
+				return true;
 			}
-			boolean ret = false;
+		}
+		else if (d == 1){
+			if(x+1 <M && arr[y][x+1]==0){
+				return true;
+			}
+		}
+		else if (d == 2){
+			if(y+1 <N && arr[y+1][x]==0){
+				return true;
+			}
+		}
+		else{
+			if(x-1>=0 && arr[y][x-1]==0){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void solve(){
+		
+		boolean flag = true;
+		boolean oneFlag = true;
+		while(flag){
+			if(oneFlag){
+				if(arr[y][x]==0){ // 현재 위치 청소 
+					res++;
+					arr[y][x]=2;
+				}
+			}
+			boolean dirFlag = false;
 			for(int i=0;i<4;i++){
-				int nd = (d+3)%4;
-				int nr = r+dr[nd];
-				int nc = c+dc[nd];
-				System.out.println("nr"+nr+"nc"+nc);
-				if(arr[nr][nc]==0){//왼쪽이 청소하지 않았을 경우 
-					
-					d = nd;
-					r = nr;
-					c = nc;
-					ret =true;
+				if(check()){
+					dirFlag = true;
 					break;
-				}
-				else{
-					d = nd;
 				}
 			}
-			if(!ret){
-				if(arr[r+1][c]==1 && arr[r-1][c]==1 && arr[r][c+1]==1 && arr[r][c-1]==1){
-					System.out.println(cnt);
-					break;
+			boolean backFlag = false;
+			if(dirFlag){ // 4방향중 있을 경우 
+				if(d==0){
+					y-=1;
+				}
+				else if(d==1){
+					x+=1;
+				}
+				else if(d==2){
+					y+=1;
 				}
 				else{
-					r = r-dr[d];
-					c = c-dc[d];
+					x-=1;
 				}
+				oneFlag = true;
+			}
+			else{
+				oneFlag = false;
+				if(d==0){
+					if(arr[y+1][x]==1){
+						backFlag = true;
+					}
+					else{
+						y+=1;
+					}
+				}
+				else if (d==1){
+					if(arr[y][x-1]==1){
+						backFlag =true;
+					}
+					else{
+						x-=1;
+					}
+				}
+				else if(d==2){
+					if(arr[y-1][x]==1){
+						backFlag = true;
+					}
+					else{
+						y-=1;
+					}
+				}
+				else if(d==3){
+					if(arr[y][x+1]==1){
+						backFlag = true;
+					}
+					else{
+						x+=1;
+					}
+				}
+			}
+			if(backFlag == true){
+				flag = false;
 			}
 		}
 	}
