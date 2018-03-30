@@ -8,14 +8,15 @@ public class Sw_2382_3 {
 	static int T;
 	static int N,M,K;
 	static int res = 0;
-	
+
 	static ArrayList<Me> list;
 	static ArrayList<Me> list2;
+	
 	public static void main(String[]args) throws NumberFormatException, IOException{
 		BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
 		T = Integer.parseInt(br.readLine());
 		StringTokenizer st;
-		
+
 		for(int t=1;t<=T;t++){
 			st = new StringTokenizer(br.readLine());
 
@@ -46,9 +47,9 @@ public class Sw_2382_3 {
 
 				time++;
 			}
-			
+
 			sum();
-			
+
 			System.out.println("#"+t+" "+res);
 			res=0;
 		}
@@ -95,11 +96,16 @@ public class Sw_2382_3 {
 				boolean flag = false;
 				for(int j=0;j<list2.size();j++){
 					if(list2.get(j).y == tmp.y && list2.get(j).x == tmp.x){
+					//	System.out.println("같은 경우 :"+tmp.x+" "+tmp.y+" "+list2.get(j).miNum+" "+tmp.miNum);
 						flag = true;
 						if(list2.get(j).miNum < tmp.miNum){
 							list2.get(j).dir = tmp.dir;
+							list2.get(j).sum += list2.get(j).miNum;
+							list2.get(j).miNum = tmp.miNum;
 						}
-						list2.get(j).sum += tmp.miNum;
+						else{
+							list2.get(j).sum += tmp.miNum;
+						}
 					}
 				}
 
@@ -113,10 +119,6 @@ public class Sw_2382_3 {
 			list2.get(j).miNum += list2.get(j).sum;
 			list2.get(j).sum =0;
 		}
-		/*System.out.println("-----------------------------");
-			for(int j=0;j<list2.size();j++){
-				System.out.println(list2.get(j).y+" "+list2.get(j).x+" "+list2.get(j).miNum+" "+list2.get(j).dir);
-			}*/
 	}
 	public static boolean areaCheck(int y, int x){
 		boolean flag = false;
@@ -136,7 +138,7 @@ class Me{
 	int miNum;
 	int dir;
 	int sum;
-	
+
 	Me(int y, int x, int miNum, int dir){
 		this.y = y;
 		this.x = x;
