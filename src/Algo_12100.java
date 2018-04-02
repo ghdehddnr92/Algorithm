@@ -43,23 +43,14 @@ public class Algo_12100 {
 	}
 	public static void solve(int depth,int map[][]){
 		if(depth==5){
+			
 			searchMax();
 			return;
+			
 		}
-
 		for(int i=0;i<4;i++){
-//			System.out.println("----"+ depth+" "+i+" 방향 -----");
 			setTmp(map);
-//			System.out.println("맵 ~~~~~~~~");
-//			for(int a=0;a<N;a++){
-//				for(int b=0;b<N;b++){
-//					System.out.print(tmp[a][b]+" ");
-//				}
-//				System.out.println("");
-//			}
-
 			move(i,tmp);
-//			showMap(tmp);
 			resetVisited();
 			int tmp2[][] = new int[N][N];
 			for(int a=0;a<N;a++){
@@ -110,7 +101,7 @@ public class Algo_12100 {
 							else{
 								if(map[k][j]==map[k-1][j] && !visited[k-1][j]){
 									map[k-1][j]+= map[k][j];
-									visited[k-1][j] = true;
+									visited[k-1][j] = true;	
 									map[k][j] = 0;
 								}
 								break;
