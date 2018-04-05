@@ -92,14 +92,7 @@ public class Algo_11559 {
 						}
 					}
 					if(cnt>=4){
-						//		System.out.println(i+" "+j);
-						//		System.out.println(cnt);
 						boom();
-						//showArr();
-						//		move();
-						//showVisited();
-						//	showArr();
-						//		res++;
 					}
 					cnt = 0;
 					resetVisited();
