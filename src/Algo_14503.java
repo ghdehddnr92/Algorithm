@@ -62,6 +62,7 @@ public class Algo_14503 {
 		boolean flag = true;
 		boolean oneFlag = true;
 		while(flag){
+			//System.out.println(y+" "+x+" "+d);
 			if(oneFlag){
 				if(arr[y][x]==0){ // 현재 위치 청소 
 					res++;

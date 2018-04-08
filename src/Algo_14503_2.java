@@ -68,7 +68,5 @@ class Algo_14503_2 {
             curr_y++;
         }
         solve(curr_x, curr_y, curr_d);
- 
     } 
- 
 }

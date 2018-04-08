@@ -9,7 +9,16 @@ public class test2{
 	//	factorial(0);
 		
 	//	combination(0,5,3,0);
-		dfs(0,0);
+		int total =0;
+		for(int i=1;i<=5;i++){
+			for(int j=1;j<=i;j++){
+				System.out.print(j);
+				total++;
+			}
+			System.out.println("");
+		}
+		System.out.println(total);
+		//dfs(0,0);
 	}
 	public static void bubun(){
 		for(int i=0;i<(1<<3);i++){
