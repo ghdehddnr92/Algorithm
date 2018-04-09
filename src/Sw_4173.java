@@ -5,13 +5,13 @@
 //import java.util.Queue;
 //import java.util.StringTokenizer;
 //
-//public class Sw_4192 {
+//public class Sw_4173 {
 //	static int T;
 //	static int N;
 //	static int arr[][];
 //	static boolean visited[][];
-//	static int dy[]={1,0,-1,0};
-//	static int dx[]={0,1,0,-1};
+//	static int dy[]={1,0,-1,0,0};
+//	static int dx[]={0,1,0,-1,0};
 //	static int startX,startY,endX,endY;
 //	static int res  =0;
 //	public static void main(String[]args) throws NumberFormatException, IOException{
@@ -28,6 +28,9 @@
 //
 //				for(int j=0;j<N;j++){
 //					arr[i][j] = Integer.parseInt(st.nextToken());
+//					if(arr[i][j]==5){
+//						arr[i][j] = 0;
+//					}
 //				}
 //			}
 //			st = new StringTokenizer(br.readLine());
@@ -54,27 +57,53 @@
 //
 //		while(!q.isEmpty()){
 //			Swim tmp = q.poll();
-//			for(int i=0;i<4;i++){
+//			for(int i=0;i<5;i++){
+//
 //				int ny = tmp.y+dy[i];
 //				int nx = tmp.x+dx[i];
 //				int nCnt = tmp.cnt+1;
+//			//	System.out.println("-------------------"+ny+" "+nx+" "+nCnt);
 //				if(ny<0|| nx<0 || ny>=N || nx>=N){
 //					continue;
 //				}
-//				if(visited[ny][nx]){
+//				if(visited[ny][nx] && i!=4){
 //					continue;
 //				}
 //				if(arr[ny][nx]==1){
 //					continue;
 //				}
-//				if(ny==endY && nx==endX){
+//				
+//				if(arr[ny][nx]==2){
+//					if(nCnt%3==0){
+//						q.add(new Swim(ny,nx,nCnt));
+//						visited[ny][nx]=true;
+//						//System.out.println(ny+" "+nx+" 방문 ");
+//					
+//					}
+//				}
+//				else{
+//					q.add(new Swim(ny,nx,nCnt));
+//					visited[ny][nx] = true;
+//					//System.out.println(ny+" "+nx+" 방문 ");
+//				}
+//				if(visited[endY][endX]){
 //					//System.out.println("도착 ");
+//				//	System.out.println(ny+" "+nx);
 //					res = nCnt;
 //					return;
 //				}
-//				q.add(new Swim(ny,nx,nCnt));
-//				visited[ny][nx] = true;
+//			//	showVisited();
+//				
 //			}
+//		}
+//	}
+//	public static void showVisited(){
+//		System.out.println("-------------------");
+//		for(int i=0;i<N;i++){
+//			for(int j=0;j<N;j++){
+//				System.out.print(visited[i][j]+" ");
+//			}
+//			System.out.println("");
 //		}
 //	}
 //}
