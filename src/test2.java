@@ -4,71 +4,72 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class test2 {
-
-	private static int R,C, max;
-	private static boolean visited[][];
-	private static char[][] arr;
-	private static int[][] dir = {{0,1},{1,0},{0,-1},{-1,0}};
-	private static boolean[] abc;
-	static int cnt =0;
-
-	private static void back(int r, int c) {
-
-		if(cnt > max){
-			max = cnt;
-		}
-
-		for(int i=0;i<4;i++){
-			int nextR = r+dir[i][0];
-			int nextC = c+dir[i][1];
-
-			if(nextR>=R || nextR<0 || nextC>=C || nextC<0) {
-				continue;
+	static int tmp[];
+	static boolean visited[];
+	public static void main(String[]args){
+		//bubun();
+		tmp = new int[3];
+		visited = new boolean[5];
+		//combination(0,5,3,0);
+		//dfs(0,0);
+		factorial(0);
+	}
+	public static void bubun(){
+		for(int i=0;i<(1<<5);i++){
+			for(int j=0;j<5;j++){
+				if((i & (1<<j))>0){
+					System.out.print(j+" ");
+				}
 			}
-
-			if(cnt>=R*C) {
-				continue;
-			}
-
-			if(visited[nextR][nextC]) {
-				continue;
-			}
-
-			if(abc[arr[nextR][nextC]]) {
-				continue;
-			}
-			//System.out.println(nextR+" "+nextC);
-			visited[nextR][nextC] = true;
-			abc[arr[nextR][nextC]] = true;
-			cnt++;
-			back(nextR,nextC);
-			visited[nextR][nextC]=false;
-			abc[arr[nextR][nextC]] = false;
-			cnt--;
+			System.out.println("");
 		}
 	}
-
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-
-		R = Integer.parseInt(st.nextToken());
-		C = Integer.parseInt(st.nextToken());
-		arr = new char[R][C];
-		visited = new boolean[R][C];
-		abc = new boolean[100];
-		for(int i=0; i<R; i++) {
-			String temp = br.readLine();
-			for(int j=0; j<C; j++)
-				arr[i][j] = temp.charAt(j);
+	public static void combination(int index, int n, int r, int target){
+		if(r==0){
+			for(int i=0;i<3;i++){
+				System.out.print(tmp[i]+" ");
+			}
+			System.out.println("");
+			return;
 		}
-		max = Integer.MIN_VALUE;
-		visited[0][0] = true;
-		abc[arr[0][0]] = true;
-		cnt++;
+		else if(n==target){
+			return;
+		}
+		else{
+			tmp[index] = target;
+			combination(index+1,n,r-1,target+1);
+			combination(index,n,r,target+1);
+		}
+	}
+	public static void dfs(int depth, int index){
+		if(depth==3){
+			for(int i=0;i<3;i++){
+				System.out.print(tmp[i]+" ");
+			}
+			System.out.println("");
+			return;
+		}
 
-		back(0,0);
-
-		System.out.println(max);
+		for(int i=index;i<5;i++){
+			tmp[depth] = i;
+			dfs(depth+1,i+1);
+		}
+	}
+	public static void factorial(int index){
+		if(index == 3){
+			for(int i=0;i<3;i++){
+				System.out.print(tmp[i]+" ");
+			}
+			System.out.println("");
+			return;
+		}
+		for(int i=0;i<5;i++){
+			if(!visited[i]){
+				tmp[index] = i;
+				visited[i] = true;
+				factorial(index+1);
+				visited[i] = false;
+			}
+		}
 	}
 }
