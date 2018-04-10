@@ -59,15 +59,15 @@ public class Algo_4179 {
 		Queue<Fire> q= new LinkedList<Fire>();
 		q.add(new Fire(y,x,0));
 		visited2[y][x]= true;
-		
+
 		while(!q.isEmpty()){
 			Fire tmp = q.poll();
-			
+
 			for(int i=0;i<4;i++){
 				int ny = tmp.y+dy[i];
 				int nx = tmp.x+dx[i];
 				int nCnt = tmp.cnt+1;
-				
+
 				if(nCnt == 2){
 					return;
 				}
@@ -80,7 +80,7 @@ public class Algo_4179 {
 				if(arr[ny][nx].equals("#")){
 					continue;
 				}
-			//	System.out.println(ny+" "+nx);
+				//	System.out.println(ny+" "+nx);
 				arr[ny][nx] = "F";
 				visited2[ny][nx] = true;
 			}
@@ -91,39 +91,44 @@ public class Algo_4179 {
 		q.add(new Fire(startY,startX,0));
 		visited[startY][startX] = true;
 		while(!q.isEmpty()){
-			Fire tmp = q.poll();
 
-			for(int i=0;i<4;i++){
-				int ny = tmp.y+dy[i];
-				int nx = tmp.x+dx[i];
-				int nCnt = tmp.cnt+1;
+			int size = q.size();
+			for(int j=0;j<size;j++){
+				Fire tmp = q.poll();
 
-				if(ny<0|| nx<0|| ny>=r || nx>=c){
-					continue;
-				}
-				if(visited[ny][nx]){
-					continue;
-				}
-				if(arr[ny][nx].equals("F") || arr[ny][nx].equals("#")){
-					continue;
-				}
+				for(int i=0;i<4;i++){
+					int ny = tmp.y+dy[i];
+					int nx = tmp.x+dx[i];
+					int nCnt = tmp.cnt+1;
 
-				q.add(new Fire(ny,nx,nCnt));
-			//	System.out.println(ny+" "+nx);
-				visited[ny][nx]= true;
-//				for(int a =0 ;a<r;a++){
-//					for(int b =0;b<c;b++){
-//						System.out.print(visited[a][b]+" ");
-//					}
-//					System.out.println("");
-//				}
-				if((ny==0 || nx==0 || ny==r-1 || nx==c-1) && arr[ny][nx].equals(".")){
-					res = nCnt;
-					return;
+					if(ny<0|| nx<0|| ny>=r || nx>=c){
+						continue;
+					}
+					if(visited[ny][nx]){
+						continue;
+					}
+					if(arr[ny][nx].equals("F") || arr[ny][nx].equals("#")){
+						continue;
+					}
+
+					q.add(new Fire(ny,nx,nCnt));
+					//	System.out.println(ny+" "+nx);
+					visited[ny][nx]= true;
+					//				for(int a =0 ;a<r;a++){
+					//					for(int b =0;b<c;b++){
+					//						System.out.print(visited[a][b]+" ");
+					//					}
+					//					System.out.println("");
+					//				}
+					if((ny==0 || nx==0 || ny==r-1 || nx==c-1) && arr[ny][nx].equals(".")){
+						res = nCnt;
+						return;
+					}
 				}
+			
+				//		showArr();
 			}
 			mapChange();
-	//		showArr();
 		}
 	}
 

@@ -10,6 +10,7 @@ public class Algo_3055 {
 	static int dx[]={0,1,0,-1};
 	static boolean visited2[][];
 	static boolean flag = false;
+	
 	public static void main(String[]args){
 		Scanner in = new Scanner(System.in);
 		N = in.nextInt();
@@ -41,6 +42,7 @@ public class Algo_3055 {
 		q.add(new Tal(y,x));
 		visited[y][x]= true;
 		int time = 0;
+		
 		while(!q.isEmpty()){
 
 			int size = q.size();
