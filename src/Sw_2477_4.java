@@ -63,11 +63,13 @@ public class Sw_2477_4 {
 			}
 
 			while(finish.size()!=K){  //사람이 모두 빠져나갔을 경우 종료 .
-				
+				System.out.println(turn+" -------------------");
 				jubsuPlay();
 				addJungbi();
 				jungbiPlay();
 				addJubsu();
+				showJubsu();
+				showJungbi();
 				
 				turn++;
 			}
@@ -130,6 +132,30 @@ public class Sw_2477_4 {
 				}
 			}
 		}
+	}
+	public static void showJubsu(){
+		System.out.println("=======접수 창구 ========");
+		for(int i=1;i<jubsuArr.length;i++){
+			if(jubsuArr[i]!=null){
+				System.out.print(jubsuArr[i].cusNum+" 남은시간 "+jubsuArr[i].aNumTime+" ");
+			}
+			else{
+				System.out.print("X ");
+			}
+		}
+		System.out.println("");
+	}
+	public static void showJungbi(){
+		System.out.println("=======정비 창구 ========");
+		for(int i=1;i<jungbiArr.length;i++){
+			if(jungbiArr[i]!=null){
+				System.out.print(jungbiArr[i].cusNum+" 남은시간 "+jungbiArr[i].bNumTime+" ");
+			}
+			else{
+				System.out.print("X ");
+			}
+		}
+		System.out.println("");
 	}
 	public static void addJungbi(){
 		Customer tmp = null;

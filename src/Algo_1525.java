@@ -22,9 +22,9 @@ public class Algo_1525 {
 		for(int i=0;i<3;i++){
 			for(int j=0;j<3;j++){
 				if(map[i][j]==0){
-				//	visited[i][j] = true;
-				//	dfs(i,j,0,map);
-					bfs(i,j,map);
+					visited[i][j] = true;
+					dfs(i,j,0,map);
+				//	bfs(i,j,map);
 				}
 			}
 		}
@@ -54,7 +54,7 @@ public class Algo_1525 {
 			Puzzle tmp = q.poll();
 			System.out.println("-----"+tmp.y+" "+tmp.x+" "+tmp.cnt+" ----------------------");
 		//	if(sameCheck(tmp.checkMap)){
-			if(tmp.cnt==3){
+			if(tmp.cnt==2){
 				if(min > tmp.cnt){
 					min = tmp.cnt;
 				}
@@ -71,9 +71,11 @@ public class Algo_1525 {
 				if(visited[ny][nx]){
 					continue;
 				}
+				
 				int tmpMap = checkMap[ny][nx];
 				checkMap[y][x]=checkMap[ny][nx];
 				checkMap[ny][nx]=0;
+				System.out.println(checkMap[ny][nx]+" "+checkMap[y][x]+" 랑 변경 ");
 				visited[ny][nx] =true;
 				showMap(checkMap);
 				q.add(new Puzzle(ny,nx,nCnt,checkMap));
@@ -85,6 +87,9 @@ public class Algo_1525 {
 	}
 	public static void dfs(int y, int x,int cnt,int checkMap[][]){
 		//System.out.println(cnt+"-----------------------------");
+		if(cnt > 4*3*3){
+			return;
+		}
 		if(sameCheck(checkMap)){
 			if(min > cnt){
 				min = cnt;
@@ -106,13 +111,13 @@ public class Algo_1525 {
 			checkMap[y][x]=checkMap[ny][nx];
 			checkMap[ny][nx]=0;
 			visited[ny][nx] =true;
-			showMap(checkMap);
+		//	showMap(checkMap);
 			dfs(ny,nx,cnt+1,checkMap);
 			checkMap[y][x]=0;
 			checkMap[ny][nx] =tmp;
 			visited[ny][nx] = false;
 
-			showMap(checkMap);
+		//	showMap(checkMap);
 		}
 	}
 	public static boolean sameCheck(int checkMap[][]){
@@ -137,5 +142,4 @@ class Puzzle{
 		this.cnt = cnt;
 		this.checkMap= checkMap;
 	}
-	
 }
