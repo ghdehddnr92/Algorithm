@@ -167,7 +167,6 @@ public class Sw_2477_6{
 		}
 	}
 	public static void goJubsuWait(int time){
-		int size = peopleTable.size();
 		int i =0;
 		while(!peopleTable.isEmpty()){
 			if(peopleTable.get(i).arriveTime == time){
@@ -215,9 +214,9 @@ public class Sw_2477_6{
 		}
 		System.out.println("");
 	}
-
 }
 class Custom{
+	
 	int customerNum;
 	int arriveTime;
 	int jubsuNum;
@@ -225,6 +224,7 @@ class Custom{
 	int remainA;
 	int remainB;
 	int finishJubsuTime;
+	
 	Custom(int customerNum, int arriveTime){
 		this.customerNum = customerNum;
 		this.arriveTime = arriveTime;
