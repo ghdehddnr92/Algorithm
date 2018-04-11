@@ -50,7 +50,7 @@ public class Algo_14500_2 {
 				if(i+2<N && j+1<M){
 					sum1+=(arr[i][j]+arr[i+1][j]+arr[i+2][j]+arr[i+1][j+1]);
 				}
-				if(i-1>=0 && i+1 <N && j+1<M && j-1>=0){
+				if(i+1 <N && j+1<M && j-1>=0){
 					sum2+=(arr[i][j]+arr[i+1][j-1]+arr[i+1][j]+arr[i+1][j+1]);
 				}
 				if(i+2<N && j-1>=0){
