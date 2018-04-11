@@ -87,15 +87,3 @@ public class Algo_14500 {
 		visited[y][x]=false;
 	}
 }
-class block{
-	int y;
-	int x;
-	int l;
-	int sum;
-	block(int y, int x, int l,int sum){
-		this.y = y;
-		this.x = x;
-		this.l = l;
-		this.sum= sum;
-	}
-}
