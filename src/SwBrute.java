@@ -16,6 +16,16 @@ public class SwBrute {
 		//combination(0,N,3,0);
 		//factorialPrint(0);
 	}
+	public static void bubun2(){
+		for(int i=0;i<(1<<N);i++){
+			for(int j=0;j<N;j++){
+				if((i & (1<<j))>0){
+					System.out.print(j+" ");
+				}
+			}
+			System.out.println("");
+		}
+	}
 	public static void bubun(int n, int depth){
 		
 		if(n == depth){

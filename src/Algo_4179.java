@@ -125,10 +125,9 @@ public class Algo_4179 {
 						return;
 					}
 				}
-			
-				//		showArr();
 			}
 			mapChange();
+			showArr();
 		}
 	}
 

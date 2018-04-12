@@ -66,7 +66,7 @@ public class Sw_4155 {
 					if(ny<0 || nx< 0 || ny>=N || nx>=M){
 						continue;
 					}
-					System.out.println(ny+" "+nx+" "+nKey);
+				//	System.out.println(ny+" "+nx+" "+nKey);
 					if(visited[ny][nx][nKey]){
 				//		System.out.println("이미 방문 ");
 						continue;
@@ -99,10 +99,12 @@ public class Sw_4155 {
 		}
 	}
 }
+
 class OnePiece{
 	int y;
 	int x;
 	int key;
+	
 	OnePiece(int y, int x,int key){
 		this.y = y;
 		this.x = x;
