@@ -13,7 +13,6 @@ public class Sw_4223 {
 	static int min = Integer.MAX_VALUE;
 
 	public static void main(String[]args) throws NumberFormatException, IOException{
-		//Scanner in = new Scanner(System.in);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		T =Integer.parseInt(br.readLine());
 		StringTokenizer st;
@@ -32,12 +31,6 @@ public class Sw_4223 {
 				arr[i][26] = score;
 			}
 
-			//			for(int i=0;i<N;i++){
-			//				for(int j=0;j<27;j++){
-			//					System.out.print(arr[i][j]+" ");
-			//				}
-			//				System.out.println("");
-			//			}
 			for(int i=0;i<(1<<N);i++){
 				int sum = 0;
 				int res[] = new int[27];
@@ -48,12 +41,7 @@ public class Sw_4223 {
 							res[k] += arr[j][k];
 						}
 					}
-			//		System.out.println("");
 				}
-//				for(int k=0;k<27;k++){
-//					System.out.print(res[k]+" ");
-//				}
-//				System.out.println("");
 				if(res['S'-'A']>=2  && res['A'-'A']>=1 && res['M'-'A']>=1 && res['U'-'A']>=1 && res['N'-'A']>=1 &&
 						res['G'-'A']>=1){
 					flag = true;
