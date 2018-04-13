@@ -15,8 +15,8 @@ public class Sw_2383_2 {
 	static ArrayList<Integer> B;
 	static ArrayList<Lunch> start;
 	static PriorityQueue<Lunch> total;
-	static ArrayList<Lunch> one;
-	static ArrayList<Lunch> two;
+	static Queue<Lunch> one;
+	static Queue<Lunch> two;
 	static Queue<Lunch> oneWait;
 	static Queue<Lunch> twoWait;
 	static Queue<Lunch> end;
@@ -35,8 +35,8 @@ public class Sw_2383_2 {
 			arr = new int[N][N];
 			A = new ArrayList<Integer>();
 			B = new ArrayList<Integer>();
-			one = new ArrayList<Lunch>();
-			two = new ArrayList<Lunch>();
+			one = new LinkedList<Lunch>();
+			two = new LinkedList<Lunch>();
 			oneWait = new LinkedList<Lunch>();
 			twoWait = new LinkedList<Lunch>();
 			start = new ArrayList<Lunch>();
@@ -104,15 +104,15 @@ public class Sw_2383_2 {
 				}
 				total.add(start.get(a));
 			}
-			System.out.println("A팀");
-			for(int a =0;a<A.size();a++){
-				System.out.print(A.get(a)+" ");
-			}
-			System.out.println("B팀 ");
-			for(int a=0;a<B.size();a++){
-				System.out.print(B.get(a)+" ");
-			}
-			System.out.println("");
+//			System.out.println("A팀");
+//			for(int a =0;a<A.size();a++){
+//				System.out.print(A.get(a)+" ");
+//			}
+//			System.out.println("B팀 ");
+//			for(int a=0;a<B.size();a++){
+//				System.out.print(B.get(a)+" ");
+//			}
+//			System.out.println("");
 
 			play();
 
@@ -124,64 +124,62 @@ public class Sw_2383_2 {
 	public static void play(){
 		int time = 0;
 		while(end.size()!=totalPeople){
-			System.out.println("시간 : -----"+time);
+			
 			if(!one.isEmpty()){
 				int size = one.size();
 				for(int i=0;i<size;i++){
-					one.get(i).time -=1;
-					if(one.get(i).time==0){
-						end.add(one.get(i));
-						one.remove(i);
+					Lunch tmp = one.poll();
+					tmp.time -=1;
+					if(tmp.time==0){
+						end.add(tmp);
 						if(!oneWait.isEmpty()){
 							one.add(oneWait.poll());
 						}
+					}
+					else{
+						one.add(tmp);
 					}
 				}
 			}
 			if(!two.isEmpty()){
 				int size= two.size();
-				System.out.println(two.size()+" two의 사이즈");
-				System.out.println(twoWait.size()+"two 대기의 사이즈 ");
+				
 				for(int j=0;j<size;j++){
-					System.out.println(two.get(j).time+"의시간 "+j);
-					two.get(j).time -=1;
-					if(two.get(j).time==0){
-						end.add(two.get(j));
-						two.remove(j);
+					Lunch tmp = two.poll();
+					tmp.time -=1;
+					if(tmp.time==0){
+						end.add(tmp);
 						if(!twoWait.isEmpty()){
 							two.add(twoWait.poll());
 						}
+					}
+					else{
+						two.add(tmp);
 					}
 				}
 			}
 			if(!total.isEmpty()){
 				while(!total.isEmpty() && total.peek().dist==time){
 					Lunch tmp = total.poll();
-					System.out.println(tmp.num +" 거리 :"+ tmp.dist +"갈 계단번호 "+tmp.resNum);
 					if(tmp.resNum==0){
 						if(one.size()<3){
-							System.out.println("계단 1에 감 ");
 							one.add(tmp);
 						}
 						else{
-							System.out.println("꼐단 1 위에서 대기 ");
 							oneWait.add(tmp);
 						}
 					}
 					else{
 						if(two.size()<3){
-							System.out.println("계단 2에 감");
 							two.add(tmp);
 						}
 						else{
-							System.out.println("계단 2 위에서 대기 ");
 							twoWait.add(tmp);
 						}
 					}
 				}
 			}
 			time++;
-			System.out.println(end.size()+" 도착한 인원 "+total.size()+"출발안한 인원");
 		}
 		if(min>time){
 			min = time;
