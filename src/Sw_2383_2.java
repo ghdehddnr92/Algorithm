@@ -104,21 +104,11 @@ public class Sw_2383_2 {
 				}
 				total.add(start.get(a));
 			}
-//			System.out.println("A팀");
-//			for(int a =0;a<A.size();a++){
-//				System.out.print(A.get(a)+" ");
-//			}
-//			System.out.println("B팀 ");
-//			for(int a=0;a<B.size();a++){
-//				System.out.print(B.get(a)+" ");
-//			}
-//			System.out.println("");
 
 			play();
 
 			A.clear();
 			B.clear();
-			//System.out.println("");
 		}
 	}
 	public static void play(){
